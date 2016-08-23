@@ -110,3 +110,34 @@ docker run --privileged -e DEVICE="Nexus S" -e ABI="default/x86_64" -t -i --net=
 - 5.4in FWVGA
 - 7in WSVGA (Tablet)
 - 10.1in WXGA (Tablet)
+
+
+## VNC connection
+
+Under construction.
+
+## Troubleshooting
+
+### Errors on the build or run step
+
+You can try first stopping the images:
+
+```
+$ docker stop $(docker ps -a -q)
+```
+
+then deleting them with docker rmi -f <image_id>. You can check the images ids by running:
+
+```
+$ docker images
+```
+
+### Errors on the VNC connection
+
+You can try first stopping the images:
+
+```
+$ docker stop $(docker ps -a -q)
+```
+
+then running the image again and reconnecting.
