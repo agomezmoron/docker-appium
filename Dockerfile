@@ -10,12 +10,14 @@ ARG JAVA_VERSION=8
 ARG APPIUM_VERSION=1.5.2
 ARG ANDROID_HOME=/opt/android-sdk-linux
 ARG APPIUM_HOME=/opt/appium
+ARG VNC_PASSWD=1234
 
 
 #================================
 # Env variables
 #================================
 
+ENV VNC_PASSWD ${VNC_PASSWD}
 ENV DEBIAN_FRONTEND noninteractive
 ENV ANDROID_SDK_VERSION ${ANDROID_SDK_VERSION}
 ENV ANDROID_SDKTOOLS_VERSION 24.4.1
@@ -46,21 +48,21 @@ extra-google-m2repository
 
 
 #================================
-# Install Android SDK's and Platform tools
+# Install Android SDK's and Platform tools, among with other necessary packages
 #================================
 
 ADD assets/etc/apt/apt.conf.d/99norecommends /etc/apt/apt.conf.d/99norecommends
 ADD assets/etc/apt/sources.list /etc/apt/sources.list
 
-RUN dpkg --add-architecture i386 \
-  && apt-get update -y \
+RUN apt-get update -y \
   && apt-get install -y software-properties-common python-software-properties \
-  && add-apt-repository ppa:webupd8team/java \
+  && add-apt-repository ppa:openjdk-r/ppa -y \
   && apt-get update -y \
-  && echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections \
   && apt-get -y --no-install-recommends install \
     xvfb \
     x11vnc \
+    libvirt-bin \
+    qemu-kvm \
     libc6-i386 \
     lib32stdc++6 \
     lib32gcc1 \
@@ -69,7 +71,7 @@ RUN dpkg --add-architecture i386 \
     wget \
     curl \
     unzip \
-    oracle-java${JAVA_VERSION}-installer \
+    openjdk-${JAVA_VERSION}-jdk \
   && wget --progress=dot:giga -O /opt/android-sdk-linux.tgz \
     https://dl.google.com/android/android-sdk_r$ANDROID_SDKTOOLS_VERSION-linux.tgz \
   && tar xzf /opt/android-sdk-linux.tgz -C /tmp \
@@ -87,7 +89,7 @@ ENV PATH $PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools
 
 ENV X11_RESOLUTION "1280x1024x24"
 ENV DISPLAY :1
-ENV VNC_PASSWD "changeme"
+ENV SHELL "/bin/bash"
 
 #==========================
 # Install Appium Dependencies

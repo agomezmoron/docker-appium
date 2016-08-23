@@ -1,6 +1,10 @@
 #!/bin/bash
 set -x
 
+#=====================
+# Functions for the VNC utility
+#=====================
+
 function run_xvfb() {
         pgrep Xvfb || Xvfb $DISPLAY -screen 0 $X11_RESOLUTION &> /dev/null &
 }
@@ -8,23 +12,39 @@ function run_x11vnc() {
   pgrep x11vnc || x11vnc -display $DISPLAY -shared -xkb -skip_lockkeys -forever -noxdamage -passwd $VNC_PASSWD &> /dev/null &
 }
 
+#=====================
+# Environment variables
+#=====================
+
 ENTRYPOINT_ARGS="$@"
 APPIUM_TEST_DIR="/src"
+
+if [ -z "$DEVICE" ]; then
+    DEVICE="Nexus S"
+fi
+
+if [ -z "$ABI" ]; then
+    ABI="default/x86_64"
+fi 
+
+#=====================
+# Start VNC
+#=====================
 
 run_xvfb
 run_x11vnc
 
-java -version
-# android
-# echo y | android update sdk --no-ui
+#=====================
+# Update Android SDK and create/start the emulator
+#=====================
+
+# echo y | android update sdk --all --no-ui
+android -s create avd --name Default --target android-$ANDROID_SDK_VERSION --abi $ABI -s 480x800 --force -d "$DEVICE"
+emulator -avd Default
 
 # Go to the Appium src dir
 # cd $APPIUM_TEST_DIR
 # perform the command
 # /bin/bash --login -c "$DOCKER_TESTS_COMMAND"
-#android
-# android -s create avd --name Default --target android-23 --abi armeabi-v7a  -s 480x800 --force -d "Nexus S"
-# emulator -avd Default
-
 
 # chown -R $HOST_UID:$HOST_GID /src/target
