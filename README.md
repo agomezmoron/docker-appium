@@ -55,8 +55,8 @@ docker run --privileged -t -i --net=host amoron/docker-appium
 
 ### Command specific arguments
 
---privileged: Allow docker to use the host's virtualization technology (KVM)
---net=host: Connect the container to our local network, so we can easily access it with localhost
+- **--privileged**: Allow docker to use the host's virtualization technology (KVM)
+- **--net=host**: Connect the container to our local network, so we can easily access it with localhost
 
 ### Optional arguments
 
