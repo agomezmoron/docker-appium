@@ -7,28 +7,41 @@ Based on <a href="https://github.com/vbanthia/docker-appium">vbanthia's idea</a>
 
 Run the Dockerfile with the following command:
 
-
 ```
 $ docker build -t amoron/docker-appium . && docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null
 ```
 
-You can specify the **Java** version and/or the **Android SDK** to use, like this:
+### Optional arguments
+
+You can specify the **Java** version, the **Android SDK** or the **VNC password** to use with the following variables (the values used are the default ones):
 
 ```
-$ docker build --build-arg JAVA_VERSION=7,ANDROID_SDK_VERSION=22  -t amoron/docker-appium . && docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null
+JAVA_VERSION=8
+ANDROID_SDK_VERSION=23
+VNC_PASSWD=1234
 ```
 
-You can optionally input the desired **VNC password** when building, for connecting to the GUI later. Default is **'1234'**. Change it like this:
-
+Usage:
 ```
-$ docker build --build-arg JAVA_VERSION=7,ANDROID_SDK_VERSION=22,VNC_PASSWD=new_pass_here  -t amoron/docker-appium . && docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null
+$ docker build --build-arg JAVA_VERSION=8,ANDROID_SDK_VERSION=23,VNC_PASSWD=1234  -t amoron/docker-appium . && docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null
 ```
 
-### Notes
+#### Possible inputs
 
-Default values are **8** for Java and **23** for Android. Java can accept versions **6**, **7** and **8** and Android should not take versions above **19**, and not higher than **24**.
+**Java**:
+- 6
+- 7
+- 8
 
+**Android SDK**:
+- 19
+- 20
+- 21
+- 22
+- 23
+- 24
 
+#### Notes
 
 The second part of the command, **'&& docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null'**, is an optional one that deletes past images of the builds so the PC does not end up with several duplicated images. It can be removed without affecting the build.
 
@@ -47,11 +60,53 @@ docker run --privileged -t -i --net=host amoron/docker-appium
 
 ### Optional arguments
 
-The run command will create an Android emulator before launching it. You can specify its CPU and device with these variables:
+The run command will create an Android emulator before launching it. You can specify its CPU and device with the following variables (the values used are the default ones):
 
+```
 DEVICE="Nexus S"
 ABI="default/x86_64"
+```
 
+Usage:
 ```
 docker run --privileged -e DEVICE="Nexus S" -e ABI="default/x86_64" -t -i --net=host amoron/docker-appium
 ```
+
+#### Possible inputs
+
+**ABIs (CPUs)**:
+- armeabi-v7a
+- default/x86
+- default/x86_64
+
+**Devices**: 
+- tv_1080p
+- tv_720p
+- wear_round
+- wear_round_chin_320_290
+- wear_square
+- Galaxy Nexus
+- Nexus 10
+- Nexus 4
+- Nexus 5
+- Nexus 6
+- Nexus 7 2013
+- Nexus 7
+- Nexus 9
+- Nexus One
+- Nexus S
+- 2.7in QVGA
+- 2.7in QVGA slider
+- 3.2in HVGA slider (ADP1)
+- 3.2in QVGA (ADP2)
+- 3.3in WQVGA
+- 3.4in WQVGA
+- 3.7 FWVGA slider
+- 3.7in WVGA (Nexus One)
+- 4in WVGA (Nexus S)
+- 4.65in 720p (Galaxy Nexus)
+- 4.7in WXGA
+- 5.1in WVGA
+- 5.4in FWVGA
+- 7in WSVGA (Tablet)
+- 10.1in WXGA (Tablet)
