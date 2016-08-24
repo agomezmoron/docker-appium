@@ -41,7 +41,7 @@ $ docker build --build-arg JAVA_VERSION=8,ANDROID_SDK_VERSION=23,VNC_PASSWD=1234
 - 23
 - 24
 
-#### Notes
+### Notes
 
 The second part of the command, **'&& docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null'**, is an optional one that deletes past images of the builds so the PC does not end up with several duplicated images. It can be removed without affecting the build.
 
