@@ -137,7 +137,7 @@ Open **Remmina**, a built-in app in Ubuntu. Configure a new connection like this
 
 - **Server**: localhost
 
-- **Password**: Your chosen VNC password. If none was given in the build, use '1234'.
+- **Password**: Your chosen VNC password. If none was given in the build, use '**1234**'.
 
 Click on '**Connect**' -or '**Save**' if you want to store the connection for further uses- and you should be able to see the emulator, as long as the image is up and running.
 
