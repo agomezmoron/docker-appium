@@ -26,7 +26,7 @@ Usage:
 $ docker build --build-arg JAVA_VERSION=8,ANDROID_SDK_VERSION=23,VNC_PASSWD=1234  -t amoron/docker-appium . && docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null
 ```
 
-#### Possible inputs
+### Possible inputs
 
 **Java**:
 - 6
@@ -72,7 +72,7 @@ Usage:
 docker run --privileged -e DEVICE="Nexus S" -e ABI="default/x86_64" -t -i --net=host amoron/docker-appium
 ```
 
-#### Possible inputs
+### Possible inputs
 
 **ABIs (CPUs)**:
 - armeabi-v7a
