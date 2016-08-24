@@ -3,6 +3,21 @@ Docker image to run your appium test against a defined Android emulador and SDK
 
 Based on <a href="https://github.com/vbanthia/docker-appium">vbanthia's idea</a> but parametrized and based on <a href="https://hub.docker.com/_/ubuntu/">Docker Ubuntu 14.04</a>.
 
+# Table of Contents
+  - [Build instructions](#build-instructions)
+    - [Optional arguments](#optional-arguments)
+    - [Possible inputs](#possible-inputs)
+    - [Notes](#notes)
+  - [Run instructions](#run-instructions)
+    - [Command specific arguments](#command-specific-arguments)
+    - [Optional arguments](#optional-arguments)
+    - [Possible inputs](#possible-inputs1)
+  - [VNC connection](#vnc-connection)
+  - [Troubleshooting](#troubleshooting)
+    - [Errors on the build or run step](#errors-on-the-build-or-run-step)
+    - [Errors on the VNC connection](#errors-on-the-vnc-connection)
+
+
 ## Build instructions
 
 Run the Dockerfile with the following command:
