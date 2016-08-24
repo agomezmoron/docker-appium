@@ -114,7 +114,17 @@ docker run --privileged -e DEVICE="Nexus S" -e ABI="default/x86_64" -t -i --net=
 
 ## VNC connection
 
-Under construction.
+Open **Remmina**, a built-in app in Ubuntu. Configure a new connection like this:
+
+- **Name**: Whatever you like
+
+- **Protocol**: VNC - Virtual Network Computing
+
+- **Server**: localhost
+
+- **Password**: Your chosen VNC password. If none was given in the build, use '1234'.
+
+Click on '**Connect**' -or '**Save**' if you want to store the connection for further uses- and you should be able to see the emulator, as long as the image is up and running.
 
 ## Troubleshooting
 
