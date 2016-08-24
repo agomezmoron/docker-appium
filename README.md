@@ -9,6 +9,7 @@ Based on <a href="https://github.com/vbanthia/docker-appium">vbanthia's idea</a>
     - [Possible inputs](#possible-inputs)
     - [Notes](#notes)
   - [Run instructions](#run-instructions)
+    - [Mandatory arguments](#mandatory-arguments)
     - [Command specific arguments](#command-specific-arguments)
     - [Optional arguments](#optional-arguments-1)
     - [Possible inputs](#possible-inputs-1)
@@ -65,7 +66,15 @@ The second part of the command, **'&& docker rmi -f $(docker images -f "dangling
 Run the image with the following command:
 
 ```
-docker run --privileged -t -i --net=host amoron/docker-appium
+docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" --rm -t -i --net=host amoron/docker-appium
+```
+
+### Mandatory arguments
+
+Please note that you **WILL** have to specify your sources folder for appium to run, **AS WELL** as a target folder for when it ends. Also, you **MUST** input a **maven command**, for example:
+
+```
+maven test -Pandroid,ci
 ```
 
 ### Command specific arguments
@@ -74,6 +83,12 @@ docker run --privileged -t -i --net=host amoron/docker-appium
 - **--net=host**: Connect the container to our local network, so we can easily access it with localhost
 
 ### Optional arguments
+
+You can choose to update the SDK when running the image. This may be useful in some cases. Just specify it like this:
+
+```
+UPDATE="y"
+```
 
 The run command will create an Android emulator before launching it. You can specify its CPU and device with the following variables (the values used are the default ones):
 
@@ -84,7 +99,7 @@ ABI="default/x86_64"
 
 Usage:
 ```
-docker run --privileged -e DEVICE="Nexus S" -e ABI="default/x86_64" -t -i --net=host amoron/docker-appium
+docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" -e DEVICE="Nexus S" -e ABI="default/x86_64" -e UPDATE="y" --rm -t -i --net=host amoron/docker-appium
 ```
 
 ### Possible inputs
