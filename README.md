@@ -151,7 +151,7 @@ You can try first stopping the images:
 $ docker stop $(docker ps -a -q)
 ```
 
-then deleting them with docker rmi -f <image_id>. You can check the images ids by running:
+then deleting them with docker rmi -f image_id. You can check the images ids by running:
 
 ```
 $ docker images
