@@ -84,6 +84,12 @@ maven test -Pandroid,ci
 
 ### Optional arguments
 
+You can choose to update the SDK when running the image. This may be useful in some cases. Just specify it like this:
+
+```
+UPDATE="y"
+```
+
 The run command will create an Android emulator before launching it. You can specify its CPU and device with the following variables (the values used are the default ones):
 
 ```
@@ -93,7 +99,7 @@ ABI="default/x86_64"
 
 Usage:
 ```
-docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" -e DEVICE="Nexus S" -e ABI="default/x86_64" --rm -t -i --net=host amoron/docker-appium
+docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" -e DEVICE="Nexus S" -e ABI="default/x86_64" -e UPDATE="y" --rm -t -i --net=host amoron/docker-appium
 ```
 
 ### Possible inputs
