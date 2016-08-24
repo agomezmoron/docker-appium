@@ -35,16 +35,27 @@ run_xvfb
 run_x11vnc
 
 #=====================
-# Update Android SDK and create/start the emulator
+# Update Android SDK if user chose it
 #=====================
 
-echo y | android update sdk --all --no-ui
+if [ "$UPDATE" == "y" ]; then
+  echo 'y' | android update sdk --no-ui
+fi
+
+#=====================
+# Create/start the emulator
+#=====================
+
 android -s create avd --name Default --target android-$ANDROID_SDK_VERSION --abi $ABI -s 480x800 --force -d "$DEVICE"
-emulator -avd Default
+emulator -avd Default &
 
-# Go to the Appium src dir
-# cd $APPIUM_TEST_DIR
-# perform the command
-# /bin/bash --login -c "$DOCKER_TESTS_COMMAND"
+sleep 30
 
-# chown -R $HOST_UID:$HOST_GID /src/target
+#=====================
+# Start Appium command
+#=====================
+
+cd $APPIUM_TEST_DIR
+/bin/bash --login -c "$DOCKER_TESTS_COMMAND"
+
+chown -R $HOST_UID:$HOST_GID /src/target

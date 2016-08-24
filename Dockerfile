@@ -68,6 +68,7 @@ RUN apt-get update -y \
     lib32gcc1 \
     lib32ncurses5 \
     lib32z1 \
+    maven \
     wget \
     curl \
     unzip \
