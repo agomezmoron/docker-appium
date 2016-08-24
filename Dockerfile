@@ -76,10 +76,11 @@ RUN apt-get update -y \
     https://dl.google.com/android/android-sdk_r$ANDROID_SDKTOOLS_VERSION-linux.tgz \
   && tar xzf /opt/android-sdk-linux.tgz -C /tmp \
   && rm /opt/android-sdk-linux.tgz \
-  && mv /tmp/android-sdk-linux $ANDROID_HOME \
-  && echo y | $ANDROID_HOME/tools/android update sdk -s -u -a -t ${SDK_PACKAGES} \
-  && apt-get -qqy clean \
-  && rm -rf /var/cache/apt/*
+  && mv /tmp/android-sdk-linux $ANDROID_HOME
+  
+RUN echo y | $ANDROID_HOME/tools/android update sdk -s -u -a -t ${SDK_PACKAGES}
+
+RUN apt-get -qqy clean && rm -rf /var/cache/apt/*
 
 ENV PATH $PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools
 
