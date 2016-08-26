@@ -63,6 +63,8 @@ RUN apt-get update -y \
     x11vnc \
     libvirt-bin \
     qemu-kvm \
+    libxi6 \
+    libgconf-2-4 \
     libc6-i386 \
     lib32stdc++6 \
     lib32gcc1 \
@@ -114,10 +116,7 @@ RUN mkdir $APPIUM_HOME \
 
 EXPOSE 4723
 
-#==========================
-# Run appium as default
-#==========================
-CMD /usr/bin/appium
+RUN ln -s $ANDROID_HOME/platform-tools/adb /usr/local/sbin/adb
 
 COPY ./assets/bin/entrypoint /
 ENTRYPOINT ["/entrypoint"]
