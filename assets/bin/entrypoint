@@ -57,6 +57,7 @@ sleep 30
 
 cd $APPIUM_TEST_DIR
 appium &
+rm -rf /src/target
 /bin/bash --login -c "$DOCKER_TESTS_COMMAND"
 
 #=====================
