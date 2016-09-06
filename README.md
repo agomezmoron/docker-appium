@@ -41,7 +41,7 @@ VNC_PASSWD=1234
 
 Usage:
 ```
-$ docker build --build-arg [JAVA_VERSION=8,ANDROID_SDK_VERSION=23,VNC_PASSWD=1234]  -t amoron/docker-appium . && docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null
+$ docker build --build-arg JAVA_VERSION=8 --build-arg ANDROID_SDK_VERSION=23 --build-argVNC_PASSWD=1234 -t amoron/docker-appium . && docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null
 ```
 
 ### Possible inputs
