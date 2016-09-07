@@ -121,4 +121,5 @@ RUN mkdir $APPIUM_HOME \
 #EXPOSE 4723
 
 COPY ./assets/bin/entrypoint /
+RUN chmod +x /entrypoint
 ENTRYPOINT ["/entrypoint"]
