@@ -34,12 +34,12 @@ fi
 run_xvfb
 run_x11vnc
 
-
 #=====================
 # Update Android SDK if user chose it
 #=====================
 
 if [ "$UPDATE" == "y" ]; then
+  rm -rf $ANDROID_HOME/extras/android/m2repository
   echo 'y' | android update sdk --no-ui
 fi
 
@@ -48,9 +48,7 @@ fi
 #=====================
 
 android -s create avd --name Default --target android-$ANDROID_SDK_VERSION --abi $ABI -s 480x800 --force -d "$DEVICE"
-emulator -avd Default &
-
-sleep 30
+emulator -avd Default & sleep 60 &&
 
 #=====================
 # Start Appium command
