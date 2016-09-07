@@ -182,4 +182,9 @@ You can try first stopping and removing the images:
 $ docker stop $(docker ps -a -q) && docker rm -f $(docker ps -a -q)
 ```
 
-then running the image again and reconnecting.
+then running the image again and reconnecting. If the connection still fails, try restarting the docker daemon:
+
+```
+$ sudo service docker restart
+```
+
