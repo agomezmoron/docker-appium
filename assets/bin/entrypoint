@@ -16,7 +16,6 @@ function run_x11vnc() {
 # Environment variables
 #=====================
 
-ENTRYPOINT_ARGS="$@"
 APPIUM_TEST_DIR="/src"
 
 if [ -z "$DEVICE" ]; then

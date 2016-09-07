@@ -80,7 +80,7 @@ RUN apt-get update -y \
   && apt-get -qqy clean && rm -rf /var/cache/apt/*
   
 RUN echo 'y' | $ANDROID_HOME/tools/android update sdk -s -u -a -t ${SDK_PACKAGES} \
-&& echo 'y' | $ANDROID_HOME/tools/android update sdk -s -u -a -t tools \
+  && echo 'y' | $ANDROID_HOME/tools/android update sdk -s -u -a -t tools \
   && mv $ANDROID_HOME/temp/tools_*.zip $ANDROID_HOME/tools.zip \
   && unzip $ANDROID_HOME/tools.zip -d $ANDROID_HOME/ \
   && rm -rf $ANDROID_HOME/extras/android/m2repository \
