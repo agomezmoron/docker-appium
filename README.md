@@ -6,6 +6,7 @@ Based on <a href="https://github.com/vbanthia/docker-appium">vbanthia's idea</a>
 I really appreciate [Pablo M. Sobrado's](https://github.com/pmsobrado) contributions because, without him, this project wouldn't exist.
 
 # Table of Contents
+  - [Prerequisites](#prerequisites)
   - [Build instructions](#build-instructions)
     - [Optional arguments](#optional-arguments)
     - [Possible inputs](#possible-inputs)
@@ -20,6 +21,10 @@ I really appreciate [Pablo M. Sobrado's](https://github.com/pmsobrado) contribut
     - [Errors on the build or run step](#errors-on-the-build-or-run-step)
     - [Errors on the VNC connection](#errors-on-the-vnc-connection)
 
+
+## Prerequisites
+
+This docker image is designed to run on **Linux** systems, may not work on **Windows**. You will need at least **25GB** per build.
 
 ## Build instructions
 
