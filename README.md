@@ -165,7 +165,7 @@ Click on '**Connect**' -or '**Save**' if you want to store the connection for fu
 You can try first stopping and removing the images:
 
 ```
-$ docker stop $(docker ps -a -q)
+$ docker stop $(docker ps -a -q) && docker rm -f $(docker ps -a -q)
 ```
 
 then deleting them with **docker rmi -f image_id**. You can check the images ids by running:
@@ -179,7 +179,7 @@ $ docker images
 You can try first stopping and removing the images:
 
 ```
-$ docker stop $(docker ps -a -q)
+$ docker stop $(docker ps -a -q) && docker rm -f $(docker ps -a -q)
 ```
 
 then running the image again and reconnecting.
