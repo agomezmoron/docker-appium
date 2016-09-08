@@ -28,10 +28,16 @@ This docker image is designed to run on **Linux** systems, may not work on **Win
 
 ## Build instructions
 
-Run the Dockerfile with the following command:
+You can build your Docker image running the Dockerfile with the following command:
 
 ```
-$ docker build -t amoron/docker-appium . && docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null
+$ docker build -t agomezmoron/docker-appium . && docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null
+```
+
+or pulling it from docker:
+
+```
+$ docker pull agomezmoron/docker-appium
 ```
 
 ### Optional arguments
