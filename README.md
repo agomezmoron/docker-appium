@@ -83,7 +83,7 @@ The second part of the command, **'&& docker rmi -f $(docker images -f "dangling
 Run the image with the following command:
 
 ```
-docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" --rm -t -i --net=host amoron/docker-appium
+$ docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" --rm -t -i --net=host amoron/docker-appium
 ```
 
 ### Mandatory arguments
@@ -116,7 +116,7 @@ ABI="default/x86_64"
 
 Usage:
 ```
-docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" -e DEVICE="Nexus S" -e ABI="default/x86_64" -e UPDATE="y" --rm -t -i --net=host amoron/docker-appium
+$ docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" -e DEVICE="Nexus S" -e ABI="default/x86_64" -e UPDATE="y" --rm -t -i --net=host amoron/docker-appium
 ```
 
 ### Possible inputs
