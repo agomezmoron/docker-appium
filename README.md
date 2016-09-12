@@ -92,7 +92,7 @@ $ docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/s
 Please note that you **WILL** have to specify your sources folder for appium to run, **AS WELL** as a target folder for when it ends. Also, you **MUST** input a **maven command**, for example:
 
 ```
-maven test -Pandroid,ci
+mvn test -Pandroid,ci
 ```
 
 ### Command specific arguments
