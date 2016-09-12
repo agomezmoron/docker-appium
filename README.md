@@ -168,8 +168,8 @@ Open **Remmina**, a built-in app in Ubuntu. Configure a new connection like this
 - **Protocol**: VNC - Virtual Network Computing
 
 - **Server**: localhost
-- 
-  **Username**: ubuntu / 'empty'
+
+- **Username**: ubuntu / 'empty'
 
 - **Password**: Your chosen VNC password. If none was given in the build, use '**1234**'.
 
