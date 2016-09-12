@@ -46,12 +46,13 @@ $ docker pull agomezmoron/docker-appium
 
 ### Optional arguments
 
-You can specify the **Java** version, the **Android SDK** or the **VNC password** to use with the following variables (the values used are the default ones):
+You can specify the **Java** and **Appium** version, the **Android SDK** or the **VNC password** to use with the following variables (the values used are the default ones):
 
 ```
 JAVA_VERSION=8
 ANDROID_SDK_VERSION=23
 VNC_PASSWD=1234
+APPIUM_VERSION=1.5.2
 ```
 
 Usage:
