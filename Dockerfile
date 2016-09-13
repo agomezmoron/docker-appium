@@ -8,8 +8,6 @@ MAINTAINER Alejandro Gomez <agommor@gmail.com>
 ARG ANDROID_SDK_VERSION=23
 ARG JAVA_VERSION=8
 ARG APPIUM_VERSION=1.5.2
-ARG ANDROID_HOME=/opt/android-sdk-linux
-ARG APPIUM_HOME=/opt/appium
 ARG VNC_PASSWD=1234
 
 #==========================
@@ -22,8 +20,8 @@ ENV ANDROID_SDK_VERSION ${ANDROID_SDK_VERSION}
 ENV ANDROID_SDKTOOLS_VERSION 24.4.1
 ENV JAVA_VERSION ${JAVA_VERSION}
 ENV APPIUM_VERSION ${APPIUM_VERSION}
-ENV ANDROID_HOME ${ANDROID_HOME}
-ENV APPIUM_HOME ${APPIUM_HOME}
+ENV ANDROID_HOME /opt/android-sdk-linux
+ENV APPIUM_HOME /opt/appium
 ENV SDK_PACKAGES \
 platform-tools,\
 build-tools-23.0.3,\
@@ -61,6 +59,7 @@ RUN apt-get update -y \
     libvirt-bin \
     qemu-kvm \
     libxi6 \
+    psmisc \
     libgconf-2-4 \
     libc6-i386 \
     lib32stdc++6 \
@@ -92,7 +91,7 @@ ENV PATH $PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools
 # X11 Configuration
 #==========================
 
-ENV X11_RESOLUTION "800x600x24"
+ENV X11_RESOLUTION "480x600x24"
 ENV DISPLAY :1
 ENV SHELL "/bin/bash"
 
@@ -118,8 +117,6 @@ RUN mkdir $APPIUM_HOME \
   && ln -s $APPIUM_HOME/node_modules/.bin/appium /usr/bin/appium \
   && ln -s $ANDROID_HOME/platform-tools/adb /usr/local/sbin/adb
   
-#EXPOSE 4723
-
 COPY ./assets/bin/entrypoint /
 RUN chmod +x /entrypoint
 ENTRYPOINT ["/entrypoint"]

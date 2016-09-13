@@ -6,10 +6,10 @@ set -x
 #=====================
 
 function run_xvfb() {
-        pgrep Xvfb || Xvfb $DISPLAY -screen 0 $X11_RESOLUTION &> /dev/null &
+        killall Xvfb && pgrep Xvfb || Xvfb $DISPLAY -screen 0 $X11_RESOLUTION &> /dev/null &
 }
 function run_x11vnc() {
-  pgrep x11vnc || x11vnc -display $DISPLAY -shared -xkb -skip_lockkeys -forever -noxdamage -passwd $VNC_PASSWD &> /dev/null &
+        killall x11vnc && pgrep x11vnc || x11vnc -display $DISPLAY -shared -xkb -skip_lockkeys -forever -noxdamage -passwd $VNC_PASSWD &> /dev/null &
 }
 
 #=====================
@@ -67,3 +67,4 @@ T_PID=$(ps aux | grep /bin/appium | awk 'NR==1{print $2}')
 kill -9 $T_PID
 
 chown -R $HOST_UID:$HOST_GID /src/target
+exit

@@ -1,4 +1,0 @@
-docker-appium:
-  build: ./
-  volumes:
-- $PWD:/src
