@@ -1,5 +1,9 @@
 # docker-appium
+
 Docker image to run your appium test against a defined Android emulador and SDK
+
+[![](https://images.microbadger.com/badges/image/agomezmoron/docker-appium.svg)](https://hub.docker.com/r/agomezmoron/docker-appium/)
+
 
 Based on <a href="https://github.com/vbanthia/docker-appium">vbanthia's idea</a> but parametrized and based on <a href="https://hub.docker.com/_/ubuntu/">Docker Ubuntu 14.04</a>.
 
@@ -28,25 +32,32 @@ This docker image is designed to run on **Linux** systems, may not work on **Win
 
 ## Build instructions
 
-Run the Dockerfile with the following command:
+You can build your Docker image running the Dockerfile with the following command:
 
 ```
-$ docker build -t amoron/docker-appium . && docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null
+$ docker build -t agomezmoron/docker-appium . && docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null
+```
+
+or pulling it from docker:
+
+```
+$ docker pull agomezmoron/docker-appium
 ```
 
 ### Optional arguments
 
-You can specify the **Java** version, the **Android SDK** or the **VNC password** to use with the following variables (the values used are the default ones):
+You can specify the **Java** and **Appium** version, the **Android SDK** or the **VNC password** to use with the following variables (the values used are the default ones):
 
 ```
 JAVA_VERSION=8
 ANDROID_SDK_VERSION=23
 VNC_PASSWD=1234
+APPIUM_VERSION=1.5.2
 ```
 
 Usage:
 ```
-$ docker build --build-arg JAVA_VERSION=8 --build-arg ANDROID_SDK_VERSION=23 --build-argVNC_PASSWD=1234 -t amoron/docker-appium . && docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null
+$ docker build --build-arg JAVA_VERSION=8 --build-arg ANDROID_SDK_VERSION=23 --build-arg VNC_PASSWD=1234 -t agomezmoron/docker-appium . && docker rmi -f $(docker images -f "dangling=true" -q) &> /dev/null
 ```
 
 ### Possible inputs
@@ -73,7 +84,7 @@ The second part of the command, **'&& docker rmi -f $(docker images -f "dangling
 Run the image with the following command:
 
 ```
-docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" --rm -t -i --net=host amoron/docker-appium
+$ docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" --rm -t -i --net=host agomezmoron/docker-appium
 ```
 
 ### Mandatory arguments
@@ -81,7 +92,7 @@ docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src
 Please note that you **WILL** have to specify your sources folder for appium to run, **AS WELL** as a target folder for when it ends. Also, you **MUST** input a **maven command**, for example:
 
 ```
-maven test -Pandroid,ci
+mvn test -Pandroid,ci
 ```
 
 ### Command specific arguments
@@ -106,7 +117,7 @@ ABI="default/x86_64"
 
 Usage:
 ```
-docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" -e DEVICE="Nexus S" -e ABI="default/x86_64" -e UPDATE="y" --rm -t -i --net=host amoron/docker-appium
+$ docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" -e DEVICE="Nexus S" -e ABI="default/x86_64" -e UPDATE="y" --rm -t -i --net=host agomezmoron/docker-appium
 ```
 
 ### Possible inputs
@@ -158,6 +169,8 @@ Open **Remmina**, a built-in app in Ubuntu. Configure a new connection like this
 - **Protocol**: VNC - Virtual Network Computing
 
 - **Server**: localhost
+
+- **Username**: ubuntu / 'empty'
 
 - **Password**: Your chosen VNC password. If none was given in the build, use '**1234**'.
 
