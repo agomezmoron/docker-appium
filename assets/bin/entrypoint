@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 #=====================
 # Functions for the VNC utility
@@ -30,8 +29,8 @@ fi
 # Start VNC
 #=====================
 
-run_xvfb
-run_x11vnc
+run_xvfb &> /dev/null &
+run_x11vnc &> /dev/null &
 
 #=====================
 # Update Android SDK if user chose it
@@ -46,13 +45,16 @@ fi
 # Create/start the emulator
 #=====================
 
-android -s create avd --name Default --target android-$ANDROID_SDK_VERSION --abi $ABI -s 480x800 --force -d "$DEVICE"
-emulator -avd Default & sleep 60 &&
+echo && echo && echo "CREATING AND LAUNCHING EMULATOR..."
+android -s create avd --name Default --target android-$ANDROID_SDK_VERSION --abi $ABI -s 480x800 --force -d "$DEVICE" &> /dev/null
+emulator -avd Default &> /dev/null & sleep 60 && echo && echo "DONE"
 
 #=====================
 # Start Appium command
 #=====================
 
+echo && echo && echo "STARTING APPIUM COMMAND..." && sleep 2
+echo && echo
 cd $APPIUM_TEST_DIR
 appium | tee appium-docker.log &
 rm -rf /src/target &> /dev/null
@@ -64,7 +66,7 @@ rm -rf /src/target &> /dev/null
 
 adb -s emulator-5554 emu kill &
 T_PID=$(ps aux | grep /bin/appium | awk 'NR==1{print $2}')
-kill -9 $T_PID
+kill -9 $T_PID &> /dev/null &
 
-chown -R $HOST_UID:$HOST_GID /src/target
+chown -R $HOST_UID:$HOST_GID /src/target &> /dev/null &
 exit
