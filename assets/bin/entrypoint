@@ -58,7 +58,7 @@ echo && echo
 cd $APPIUM_TEST_DIR
 appium | tee appium-docker.log &
 rm -rf /src/target &> /dev/null
-/bin/bash --login -c "$DOCKER_TESTS_COMMAND"
+/bin/bash -c "$DOCKER_TESTS_COMMAND"
 
 #=====================
 # Once finished, close everything

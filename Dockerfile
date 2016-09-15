@@ -117,6 +117,8 @@ RUN mkdir $APPIUM_HOME \
   && ln -s $APPIUM_HOME/node_modules/.bin/appium /usr/bin/appium \
   && ln -s $ANDROID_HOME/platform-tools/adb /usr/local/sbin/adb
   
-COPY ./assets/bin/entrypoint /
-RUN chmod +x /entrypoint
-ENTRYPOINT ["/entrypoint"]
+EXPOSE 5900
+
+ADD assets/bin/entrypoint /entrypoint
+RUN chmod +x /entrypoint && cat /entrypoint
+ENTRYPOINT ["/bin/bash","/entrypoint"]
