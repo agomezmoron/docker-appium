@@ -84,7 +84,7 @@ The second part of the command, **'&& docker rmi -f $(docker images -f "dangling
 Run the image with the following command:
 
 ```
-$ docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" --rm -t -i --net=host agomezmoron/docker-appium
+$ docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -v /YOUR/TARGET/FOLDER:/src/target -e HOST_UID=$(id -u) -e HOST_GID=$(id -g) -e DOCKER_TESTS_COMMAND="YOUR_MAVEN_COMMAND" --rm -t -i -p 5900:5900 agomezmoron/docker-appium
 ```
 
 ### Mandatory arguments
@@ -98,7 +98,6 @@ mvn test -Pandroid,ci
 ### Command specific arguments
 
 - **--privileged**: Allow docker to use the host's virtualization technology (KVM)
-- **--net=host**: Connect the container to our local network, so we can easily access it with localhost
 
 ### Optional arguments
 
