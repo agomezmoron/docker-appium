@@ -8,6 +8,7 @@ MAINTAINER Alejandro Gomez <agommor@gmail.com>
 ARG ANDROID_SDK_VERSION=23
 ARG JAVA_VERSION=8
 ARG APPIUM_VERSION=1.5.2
+ARG CHROMEDRIVER_VERSION=2.21.0
 ARG VNC_PASSWD=1234
 
 #==========================
@@ -20,6 +21,7 @@ ENV ANDROID_SDK_VERSION ${ANDROID_SDK_VERSION}
 ENV ANDROID_SDKTOOLS_VERSION 24.4.1
 ENV JAVA_VERSION ${JAVA_VERSION}
 ENV APPIUM_VERSION ${APPIUM_VERSION}
+ENV CHROMEDRIVER_VERSION ${CHROMEDRIVER_VERSION}
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV APPIUM_HOME /opt/appium
 ENV SDK_PACKAGES \
@@ -114,6 +116,7 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - \
 RUN mkdir $APPIUM_HOME \
   && cd $APPIUM_HOME \
   && npm install appium@$APPIUM_VERSION \
+  && npm install chromedriver@$CHROMEDRIVER_VERSION \
   && ln -s $APPIUM_HOME/node_modules/.bin/appium /usr/bin/appium \
   && ln -s $ANDROID_HOME/platform-tools/adb /usr/local/sbin/adb
   
