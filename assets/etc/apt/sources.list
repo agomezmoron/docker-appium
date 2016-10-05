@@ -1,6 +1,11 @@
 deb http://nl.archive.ubuntu.com/ubuntu trusty main restricted universe multiverse
+deb-src http://nl.archive.ubuntu.com/ubuntu trusty main restricted universe multiverse
+
 deb http://nl.archive.ubuntu.com/ubuntu trusty-updates main restricted universe multiverse
 deb http://nl.archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse
 deb http://nl.archive.ubuntu.com/ubuntu trusty-security main restricted universe multiverse
-deb-src http://nl.archive.ubuntu.com/ubuntu trusty main restricted universe multiverse
+
 deb http://archive.canonical.com/ubuntu trusty partner
+
+deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main
+deb-src http://ppa.launchpad.net/openjdk-r/ppa/ubuntu trusty main

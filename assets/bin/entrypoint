@@ -11,6 +11,8 @@ function run_x11vnc() {
         killall x11vnc && pgrep x11vnc || x11vnc -display $DISPLAY -shared -xkb -skip_lockkeys -forever -noxdamage -passwd $VNC_PASSWD &> /dev/null &
 }
 
+echo && echo
+
 #=====================
 # Environment variables
 #=====================
@@ -37,14 +39,15 @@ run_x11vnc &> /dev/null &
 #=====================
 
 if [ "$UPDATE" == "y" ]; then
-  rm -rf $ANDROID_HOME/extras/android/m2repository
+  rm -rf $ANDROID_HOME/extras/android/m2repository &> /dev/null &
+  echo "UPDATING ANDROID PACKAGES..." && sleep 2 && echo && echo
   echo 'y' | android update sdk --no-ui
+  echo && echo && echo "DONE" && sleep 2
 fi
 
 #=====================
 # Create/start the emulator
 #=====================
-
 echo && echo && echo "CREATING AND LAUNCHING EMULATOR..."
 android -s create avd --name Default --target android-$ANDROID_SDK_VERSION --abi $ABI -s 480x800 --force -d "$DEVICE" &> /dev/null
 emulator -avd Default &> /dev/null & sleep 60 && echo && echo "DONE"
@@ -57,7 +60,7 @@ echo && echo && echo "STARTING APPIUM COMMAND..." && sleep 2
 echo && echo
 cd $APPIUM_TEST_DIR
 appium | tee appium-docker.log &
-chmod -R 777 /src/target
+chmod -R 777 /src/target &> /dev/null
 rm -rf /src/target &> /dev/null
 /bin/bash -c "$DOCKER_TESTS_COMMAND"
 
@@ -65,7 +68,9 @@ rm -rf /src/target &> /dev/null
 # Once finished, close everything
 #=====================
 
-adb -s emulator-5554 emu kill &
+echo && echo && echo "DONE" && sleep 2
+echo && echo && echo "CLEANING UP AND EXITING..." && sleep 2 && echo && echo
+adb -s emulator-5554 emu kill &> /dev/null &
 T_PID=$(ps aux | grep /bin/appium | awk 'NR==1{print $2}')
 kill -9 $T_PID &> /dev/null &
 

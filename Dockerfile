@@ -15,6 +15,9 @@ ARG VNC_PASSWD=1234
 # Env variables
 #==========================
 
+ENV SHELL "/bin/bash"
+ENV X11_RESOLUTION "480x600x24"
+ENV DISPLAY :1
 ENV VNC_PASSWD ${VNC_PASSWD}
 ENV DEBIAN_FRONTEND noninteractive
 ENV ANDROID_SDK_VERSION ${ANDROID_SDK_VERSION}
@@ -24,6 +27,7 @@ ENV APPIUM_VERSION ${APPIUM_VERSION}
 ENV CHROMEDRIVER_VERSION ${CHROMEDRIVER_VERSION}
 ENV ANDROID_HOME /opt/android-sdk-linux
 ENV APPIUM_HOME /opt/appium
+ENV PATH $PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools
 ENV SDK_PACKAGES \
 platform-tools,\
 build-tools-23.0.3,\
@@ -45,81 +49,74 @@ extra-google-google_play_services,\
 extra-google-m2repository
 
 #==========================
-# Install Android SDK's and Platform tools, among with other necessary packages
+# Add external files
 #==========================
 
 ADD assets/etc/apt/apt.conf.d/99norecommends /etc/apt/apt.conf.d/99norecommends
 ADD assets/etc/apt/sources.list /etc/apt/sources.list
 
-RUN apt-get update -y \
-  && apt-get install -y software-properties-common python-software-properties \
-  && add-apt-repository ppa:openjdk-r/ppa -y \
+#==========================
+# Install necessary packages, Appium and NPM
+#==========================
+
+RUN  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A \
   && apt-get update -y \
   && apt-get -y --no-install-recommends install \
-    xvfb \
-    x11vnc \
-    libvirt-bin \
-    qemu-kvm \
-    libxi6 \
-    psmisc \
-    libgconf-2-4 \
-    libc6-i386 \
-    lib32stdc++6 \
+    apt-transport-https \
+    build-essential \
+    curl \
+    g++ \
     lib32gcc1 \
     lib32ncurses5 \
+    lib32stdc++6 \
     lib32z1 \
+    libc6-i386 \
+    libgconf-2-4 \
+    libvirt-bin \
+    libxi6 \
+    make \
     maven \
-    wget \
-    curl \
-    unzip \
     openjdk-${JAVA_VERSION}-jdk \
-  && wget --progress=dot:giga -O /opt/android-sdk-linux.tgz \
+    psmisc \
+    python \
+    python-software-properties \
+    qemu-kvm \
+    software-properties-common \
+    unzip \
+    wget \
+    x11vnc \
+    xvfb \
+  && curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - \
+  && apt-get install -y nodejs \
+  && apt-get -qqy clean && rm -rf /var/cache/apt/* \
+  && mkdir $APPIUM_HOME \
+  && cd $APPIUM_HOME \
+  && npm i appium@$APPIUM_VERSION chromedriver@$CHROMEDRIVER_VERSION \
+  && ln -s $APPIUM_HOME/node_modules/.bin/appium /usr/bin/appium \
+  && ln -s $ANDROID_HOME/platform-tools/adb /usr/local/sbin/adb
+    
+#==========================
+# Install Android SDK's and Platform tools
+#==========================
+    
+RUN wget --progress=dot:giga -O /opt/android-sdk-linux.tgz \
     https://dl.google.com/android/android-sdk_r$ANDROID_SDKTOOLS_VERSION-linux.tgz \
   && tar xzf /opt/android-sdk-linux.tgz -C /tmp \
   && rm /opt/android-sdk-linux.tgz \
   && mv /tmp/android-sdk-linux $ANDROID_HOME \
-  && apt-get -qqy clean && rm -rf /var/cache/apt/*
-  
-RUN echo 'y' | $ANDROID_HOME/tools/android update sdk -s -u -a -t ${SDK_PACKAGES} \
+  && echo 'y' | $ANDROID_HOME/tools/android update sdk -s -u -a -t ${SDK_PACKAGES} \
   && echo 'y' | $ANDROID_HOME/tools/android update sdk -s -u -a -t tools \
-  && mv $ANDROID_HOME/temp/tools_*.zip $ANDROID_HOME/tools.zip \
-  && unzip $ANDROID_HOME/tools.zip -d $ANDROID_HOME/ \
+  && if [ -f $ANDROID_HOME/temp/tools_*.zip ]; \
+     then mv $ANDROID_HOME/temp/tools_*.zip $ANDROID_HOME/tools.zip \
+          && unzip $ANDROID_HOME/tools.zip -d $ANDROID_HOME/; \
+     fi \
   && rm -rf $ANDROID_HOME/extras/android/m2repository \
   && echo 'y' | $ANDROID_HOME/tools/android update sdk --no-ui
 
-ENV PATH $PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools
-
 #==========================
-# X11 Configuration
+# Final step
 #==========================
 
-ENV X11_RESOLUTION "480x600x24"
-ENV DISPLAY :1
-ENV SHELL "/bin/bash"
-
-#==========================
-# Install Appium Dependencies
-#==========================
-
-RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - \
-  && apt-get -qqy install \
-    nodejs \
-    python \
-    make \
-    build-essential \
-    g++
-
-#==========================
-# Install Appium
-#==========================
-
-RUN mkdir $APPIUM_HOME \
-  && cd $APPIUM_HOME \
-  && npm install appium@$APPIUM_VERSION \
-  && npm install chromedriver@$CHROMEDRIVER_VERSION \
-  && ln -s $APPIUM_HOME/node_modules/.bin/appium /usr/bin/appium \
-  && ln -s $ANDROID_HOME/platform-tools/adb /usr/local/sbin/adb
-  
 EXPOSE 5900
 
 ADD assets/bin/entrypoint /entrypoint
