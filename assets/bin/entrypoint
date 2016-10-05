@@ -51,7 +51,7 @@ fi
 
 echo && echo && echo "CREATING AND LAUNCHING EMULATOR..."
 android -s create avd --name Default --target android-$ANDROID_SDK_VERSION --abi $ABI -s 480x800 --force -d "$DEVICE" &> /dev/null
-emulator -avd Default &> /dev/null & sleep 60 & echo && echo "DONE."
+emulator -avd Default &> /dev/null & sleep 60 && echo && echo "DONE."
 
 #=====================
 # Start Appium command
