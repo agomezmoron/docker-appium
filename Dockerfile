@@ -109,9 +109,7 @@ RUN wget --progress=dot:giga -O /opt/android-sdk-linux.tgz \
   && if [ -f $ANDROID_HOME/temp/tools_*.zip ]; \
      then mv $ANDROID_HOME/temp/tools_*.zip $ANDROID_HOME/tools.zip \
           && unzip $ANDROID_HOME/tools.zip -d $ANDROID_HOME/; \
-     fi \
-  && rm -rf $ANDROID_HOME/extras/android/m2repository \
-  && echo 'y' | $ANDROID_HOME/tools/android update sdk --no-ui
+     fi
 
 #==========================
 # Final steps
