@@ -114,7 +114,7 @@ RUN wget --progress=dot:giga -O /opt/android-sdk-linux.tgz \
   && echo 'y' | $ANDROID_HOME/tools/android update sdk --no-ui
 
 #==========================
-# Final step
+# Final steps
 #==========================
 
 EXPOSE 5900
