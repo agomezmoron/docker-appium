@@ -59,7 +59,7 @@ ADD assets/etc/apt/sources.list /etc/apt/sources.list
 # Install necessary packages, Appium and NPM
 #==========================
 
-RUN  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A \
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A \
   && apt-get update -y \
   && apt-get -y --no-install-recommends install \
     apt-transport-https \
@@ -87,7 +87,7 @@ RUN  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EB9B1D8886F44E2A \
     x11vnc \
     xvfb \
   && curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - \
-  && apt-get install -y nodejs \
+  && apt-get install -y --no-install-recommends nodejs \
   && apt-get -qqy clean && rm -rf /var/cache/apt/* \
   && mkdir $APPIUM_HOME \
   && cd $APPIUM_HOME \
