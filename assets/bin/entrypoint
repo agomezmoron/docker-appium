@@ -42,7 +42,7 @@ if [ "$UPDATE" == "y" ]; then
   rm -rf $ANDROID_HOME/extras/android/m2repository &> /dev/null &
   echo "UPDATING ANDROID PACKAGES..." && sleep 2 && echo && echo
   echo 'y' | android update sdk --no-ui
-  echo && echo && echo "DONE" && sleep 2
+  echo && echo && echo "DONE." && sleep 2
 fi
 
 #=====================
@@ -50,7 +50,7 @@ fi
 #=====================
 echo && echo && echo "CREATING AND LAUNCHING EMULATOR..."
 android -s create avd --name Default --target android-$ANDROID_SDK_VERSION --abi $ABI -s 480x800 --force -d "$DEVICE" &> /dev/null
-emulator -avd Default &> /dev/null & sleep 60 && echo && echo "DONE"
+emulator -avd Default &> /dev/null & sleep 60 && echo && echo "DONE."
 
 #=====================
 # Start Appium command
@@ -68,7 +68,7 @@ rm -rf /src/target &> /dev/null
 # Once finished, close everything
 #=====================
 
-echo && echo && echo "DONE" && sleep 2
+echo && echo && echo "DONE." && sleep 2
 echo && echo && echo "CLEANING UP AND EXITING..." && sleep 2 && echo && echo
 adb -s emulator-5554 emu kill &> /dev/null &
 T_PID=$(ps aux | grep /bin/appium | awk 'NR==1{print $2}')
